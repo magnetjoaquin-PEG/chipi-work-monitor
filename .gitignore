@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+chipi.db
+.venv/
+.vscode/
+backups/
