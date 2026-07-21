@@ -21,7 +21,6 @@ from app.api.v1.processing_logs import (
 
 router = APIRouter()
 
-
 router.include_router(
     documents_router,
     prefix="/api/v1/documents",
@@ -75,9 +74,9 @@ router.include_router(
     prefix="/api/v1/sharepoint",
     tags=["sharepoint-processing"]
 )
+
 router.include_router(
     processing_logs_router,
     prefix="/api/v1/processing-logs",
     tags=["processing-logs"]
 )
-
