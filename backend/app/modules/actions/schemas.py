@@ -13,3 +13,6 @@ class ActionResponse(BaseModel):
     description: str
     priority: str
     status: str
+
+class ActionUpdate(BaseModel):
+    status: str

@@ -42,6 +42,9 @@ def get_today_agenda():
 
     for action in actions:
 
+        if action.status == "DONE":
+            continue
+
         priority = 3
 
         if action.priority == "HIGH":

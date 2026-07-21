@@ -5,6 +5,9 @@ from app.db.database import SessionLocal
 from app.db.models import Action
 from app.modules.actions.schemas import ActionCreate
 
+from fastapi import HTTPException
+from app.modules.actions.schemas import ActionUpdate
+
 router = APIRouter()
 
 
@@ -51,4 +54,34 @@ def create_action(action: ActionCreate):
     return {
         "id": new_action.id,
         "status": "created"
+    }
+
+@router.patch("/{action_id}")
+def update_action(
+    action_id: int,
+    update: ActionUpdate
+):
+
+    db = SessionLocal()
+
+    action = db.get(
+        Action,
+        action_id
+    )
+
+    if not action:
+        raise HTTPException(
+            status_code=404,
+            detail="Action not found"
+        )
+
+    action.status = update.status
+
+    db.commit()
+    db.refresh(action)
+
+    return {
+        "id": action.id,
+        "title": action.title,
+        "status": action.status
     }

@@ -35,3 +35,12 @@ class Risk(Base):
     severity = Column(String)
     status = Column(String)
     source = Column(String)
+
+class ProcessingLog(Base):
+    __tablename__ = "processing_logs"
+
+    id = Column(Integer, primary_key=True)
+    document_name = Column(String)
+    actions_created = Column(Integer)
+    risks_created = Column(Integer)
+
