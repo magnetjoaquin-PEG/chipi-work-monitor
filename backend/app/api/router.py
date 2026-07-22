@@ -40,6 +40,9 @@ from app.api.v1.workspace import (
 from app.api.v1.dashboard_stats import (
     router as dashboard_stats_router
 )
+from app.api.v1.assistant import (
+    router as assistant_router
+)
 
 router = APIRouter()
 
@@ -137,4 +140,9 @@ router.include_router(
     dashboard_stats_router,
     prefix="/api/v1/dashboard/stats",
     tags=["dashboard-stats"]
+)
+router.include_router(
+    assistant_router,
+    prefix="/api/v1/assistant",
+    tags=["assistant"]
 )
