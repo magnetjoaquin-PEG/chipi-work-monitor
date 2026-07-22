@@ -1,32 +1,12 @@
 import streamlit as st
-import requests
 
 st.title("💬 CHIPI Assistant")
 
-st.caption(
-    "Consulta acciones, documentos y actividad."
-)
+st.error("🔥 SI VES ESTE MENSAJE, ESTÁS EN EL ARCHIVO CORRECTO")
 
-question = st.text_input(
-    "Preguntá a CHIPI"
-)
+st.subheader("Preguntas sugeridas")
 
-if st.button("Enviar"):
-
-    response = requests.post(
-        "http://127.0.0.1:8000/api/v1/assistant",
-        json={
-            "question": question
-        }
-    )
-
-    data = response.json()
-
-    st.success(
-        data["answer"]
-    )
-
-    for item in data["details"]:
-        st.write(
-            f"• {item}"
-        )
+st.button("✅ Acciones abiertas")
+st.button("✅ Acciones completadas")
+st.button("📄 Documentos procesados")
+st.button("📄 Último documento")

@@ -76,8 +76,43 @@ if page == "💬 Assistant":
         "Consultá acciones y documentos."
     )
 
+    if "question" not in st.session_state:
+        st.session_state.question = ""
+
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    st.subheader("Preguntas sugeridas")
+
+    c1, c2 = st.columns(2)
+
+    with c1:
+
+        if st.button("✅ Acciones abiertas"):
+            st.session_state.question = (
+                "acciones abiertas"
+            )
+
+        if st.button("📄 Documentos procesados"):
+            st.session_state.question = (
+                "documentos procesados"
+            )
+
+    with c2:
+
+        if st.button("✅ Acciones completadas"):
+            st.session_state.question = (
+                "acciones completadas"
+            )
+
+        if st.button("📄 Último documento"):
+            st.session_state.question = (
+                "ultimo documento"
+            )
+
     question = st.text_input(
-        "Preguntá a CHIPI"
+        "Preguntá a CHIPI",
+        value=st.session_state.question
     )
 
     if st.button("Enviar"):
@@ -89,25 +124,49 @@ if page == "💬 Assistant":
             }
         )
 
-        if response.status_code == 200:
+        assistant_data = response.json()
 
-            assistant_data = response.json()
+        st.session_state.messages.append(
+            {
+                "role": "user",
+                "content": question
+            }
+        )
 
-            st.success(
-                assistant_data["answer"]
-            )
+        st.session_state.messages.append(
+            {
+                "role": "assistant",
+                "content": assistant_data["answer"],
+                "details": assistant_data.get(
+                    "details",
+                    []
+                )
+            }
+        )
 
-            for item in assistant_data["details"]:
+    st.divider()
+
+    for msg in st.session_state.messages:
+
+        if msg["role"] == "user":
+
+            with st.chat_message("user"):
                 st.write(
-                    f"• {item}"
+                    msg["content"]
                 )
 
         else:
 
-            st.error(
-                "Error consultando el Assistant."
-            )
+            with st.chat_message("assistant"):
 
+                st.write(
+                    msg["content"]
+                )
+
+                for item in msg["details"]:
+                    st.write(
+                        f"• {item}"
+                    )
 # --------------------------------------------------
 # Dashboard
 # --------------------------------------------------
