@@ -18,6 +18,28 @@ from app.api.v1.sharepoint_processing import (
 from app.api.v1.processing_logs import (
     router as processing_logs_router
 )
+from app.api.v1.dashboard_kpis import (
+    router as dashboard_kpis_router
+)
+from app.api.v1.processing_center import (
+    router as processing_center_router
+)
+from app.api.v1.home import (
+    router as home_router
+)
+from app.api.v1.risk_board import (
+    router as risk_board_router
+)
+from app.api.v1.action_board import (
+    router as action_board_router
+)
+from app.api.v1.workspace import (
+    router as workspace_router
+)
+
+from app.api.v1.dashboard_stats import (
+    router as dashboard_stats_router
+)
 
 router = APIRouter()
 
@@ -79,4 +101,40 @@ router.include_router(
     processing_logs_router,
     prefix="/api/v1/processing-logs",
     tags=["processing-logs"]
+)
+
+router.include_router(
+    dashboard_kpis_router,
+    prefix="/api/v1/dashboard/kpis",
+    tags=["dashboard-kpis"]
+)
+router.include_router(
+    processing_center_router,
+    prefix="/api/v1/processing-center",
+    tags=["processing-center"]
+)
+router.include_router(
+    home_router,
+    prefix="/api/v1/home",
+    tags=["home"]
+)
+router.include_router(
+    risk_board_router,
+    prefix="/api/v1/risk-board",
+    tags=["risk-board"]
+)
+router.include_router(
+    action_board_router,
+    prefix="/api/v1/action-board",
+    tags=["action-board"]
+)
+router.include_router(
+    workspace_router,
+    prefix="/api/v1/workspace",
+    tags=["workspace"]
+)
+router.include_router(
+    dashboard_stats_router,
+    prefix="/api/v1/dashboard/stats",
+    tags=["dashboard-stats"]
 )

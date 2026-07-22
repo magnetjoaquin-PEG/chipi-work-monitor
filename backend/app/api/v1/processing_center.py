@@ -7,8 +7,8 @@ from app.db.models import ProcessingLog
 router = APIRouter()
 
 
-@router.get("/")
-def get_processing_logs():
+@router.get("")
+def processing_center():
 
     db = SessionLocal()
 
@@ -16,12 +16,18 @@ def get_processing_logs():
         select(ProcessingLog)
     ).all()
 
+    logs = sorted(
+        logs,
+        key=lambda x: x.id,
+        reverse=True
+    )
+
     return {
-        "total": len(logs),
-        "logs": [
+        "recent_documents": [
             {
                 "id": log.id,
-                "document_name": log.document_name,
+                "document": log.document_name,
+                "status": "SUCCESS",
                 "actions_created": log.actions_created,
                 "risks_created": log.risks_created
             }
